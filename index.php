@@ -1,16 +1,33 @@
 <?php
- 		$urlRest = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=500&api=restaurants";
-        $urlEvents = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=500&api=events";
-        $urlEventsSports = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=500&api=events_sports";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $urlRest);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($ch);
-        curl_close($ch);
+	$budget = 300;
+	$duration  = 3;
 
+	if(isset($_GET)) {
+        if(isset($_GET['budget'])) {
+            $budget = $_GET['budget'];
+        } else {
+            $budget = 300;
+        }
+        if(isset($_GET['duration'])) {
+            $duration = $_GET['duration'];
+        } else {
+            $duration = 3;
+        }
+    }
 
- function getPackages($budget, $duration, $json_in)
+	$urlRest = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=".$budget."&api=restaurants";
+    $urlEvents = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=".$budget."&api=events";
+    $urlEventsSports = "http://dforce-hack.herokuapp.com/wrapper.php?zip=94101&date=10%20Oct,%202014&budget=".$budget."&api=events_sports";
+    
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $urlRest);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+	function getPackages($budget, $duration, $json_in)
         {
             $output = json_decode($json_in, true);
             $pkg_file_length = count($output);
@@ -118,27 +135,8 @@
 
             return $first_package;
         }
+	
 
-
-
-
-
+		$test = getPackages($budget, $duration, $data);
+		print_r($test);
 ?>
-
-<html>
-<head>
-		<title>Budgeted Search Results</title>
-		<style type="text/css">body { font-family: arial,sans-serif;} </style>
-</head>
-<body>
-		<h1>Budgeted Search Results</h1>
-		<div id="results">
-			<?php 
-				$test = getPackages(300, 3, $data);
-				print_r($test);
-			?>
-
-		</div>
-		
-</body>
-</html>
