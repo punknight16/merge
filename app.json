@@ -1,0 +1,7 @@
+{
+"name": "ebay",
+"description": "a barebones app to use the ebay API",
+"repository": "https://github.com/punknight16/newGitTest.git",
+"logo": "http://www.punknight.com",
+"keywords": ["php", "heroku", "iOS"]
+}
